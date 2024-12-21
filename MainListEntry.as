@@ -10,16 +10,12 @@ class MainListEntry extends BasicListEntry
 	// Stage
 
 	public var name:TextField;
-	public var index:TextField;
-	public var modname:TextField;
-	public var favorite:MovieClip;
-	public var hasSuboptions:MovieClip;
+	public var hold:TextField;
 	public var background:MovieClip;
 
-	public var bg_fill:MovieClip;
-	public var bg_border:MovieClip;
-
 	// Variables
+	private var border;
+	private var bgFill;
 
 	private var __width;
 	private var __height;
@@ -30,8 +26,8 @@ class MainListEntry extends BasicListEntry
 	{
 		super();
 
-		bg_fill = background.fill;
-		bg_border = background.border;
+		border = background.border;
+		bgFill = background.background;
 	}
 
 	// Public Functions
@@ -52,20 +48,8 @@ class MainListEntry extends BasicListEntry
 		else
 			enabled = a_entryObject.enabled;
 
-		var transform = new ColorTransform();
-		if (a_entryObject.color) {
-			transform.rgb = a_entryObject.color;
-		}
-		if (a_entryObject.favorite === true) {
-			favorite.gotoAndStop("show");
-		} else {
-			favorite.gotoAndStop("hide");
-		}
-		bg_border.transform.colorTransform = transform;
-		hasSuboptions._visible = a_entryObject.suboptions && a_entryObject.suboptions.length;
-		modname.text = a_entryObject.mod;
-		index.text = a_entryObject.itemIndex;
-		name.text = a_entryObject.text;
+		name.text = a_entryObject.name;
+		hold.text = a_entryObject.location + " / " + a_entryObject.hold;
 
 		if (selected) {
 			_alpha = enabled ? 100 : 25;

@@ -31,43 +31,43 @@ class SubListEntry extends BasicListEntry
 	// @override BasicListEntry
 	public function initialize(a_index:Number, a_list:BasicList):Void
 	{
+		isEnabled = false;
 		enabled = true;
 	}
 
 	// @override BasicListEntry
 	public function setEntry(a_entryObject:Object, a_state:ListState):Void
 	{
-		name.text = a_entryObject.text;
+		name.text = a_entryObject.name;
 
-		var selected = a_entryObject == a_state.list.selectedEntry;
 		if (a_state.list["_selectDisable"]) {
+			isEnabled = false;
 			enabled = false;
 		} else {
-			_selected = selected;
+			_selected = a_entryObject == a_state.list.selectedEntry;
+			isEnabled = true;
 		}
 
 		selectIndicator.clear();
-		selectIndicator._visible = _selected;
+		selectIndicator._visible = true;
+		var activeIdx = a_state.list["activeTypes"].indexOf(a_entryObject.type);
+		var active = activeIdx != undefined && activeIdx != -1;
+		var color = active ? 0x1cd5a3 : 0xC70039;
+		var gradientType = "linear";
+		var colors = [color, color];
+		var alphas = [90, 0];
+		var ratios = [0, 255];
+		var matrix = {matrixType: "box", x: selectIndicator._x + 1, y: selectIndicator._y, w: selectIndicator._width, h: selectIndicator._height, r: 0};
+		selectIndicator.beginGradientFill(gradientType,colors,alphas,ratios,matrix);
+		selectIndicator.moveTo(matrix.x,matrix.y);
+		selectIndicator.lineTo(matrix.x + matrix.w,matrix.y);
+		selectIndicator.lineTo(matrix.x + matrix.w,matrix.y + matrix.h);
+		selectIndicator.lineTo(matrix.x,matrix.y + matrix.h);
+		selectIndicator.lineTo(matrix.x,matrix.y);
+		selectIndicator.endFill();
+
 		if (_selected) {
 			_alpha = enabled ? 100 : 25;
-
-			var color = a_entryObject.color || a_state.list["_highLightColor"];
-			if (!color) {
-				color = 0;
-			}
-
-			var gradientType = "radial";
-			var colors = [color, 0x454545];
-			var alphas = [60, 10];
-			var ratios = [15, 255];
-			var matrix = {matrixType: "box", x: 0, y: -(_width / 2) + (_height / 2), w: _width, h: _width, r: Math.PI / 2};
-			selectIndicator.beginGradientFill(gradientType,colors,alphas,ratios,matrix);
-			selectIndicator.moveTo(matrix.x,matrix.y);
-			selectIndicator.lineTo(matrix.x + matrix.w,matrix.y);
-			selectIndicator.lineTo(matrix.x + matrix.w,matrix.y + matrix.h);
-			selectIndicator.lineTo(matrix.x,matrix.y + matrix.h);
-			selectIndicator.lineTo(matrix.x,matrix.y);
-			selectIndicator.endFill();
 		} else {
 			_alpha = enabled ? 60 : 15;
 		}

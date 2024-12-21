@@ -1,4 +1,4 @@
-import Shared.GlobalFunc;
+﻿import Shared.GlobalFunc;
 import gfx.ui.NavigationCode;
 import gfx.ui.InputDetails;
 
@@ -13,36 +13,42 @@ import skyui.util.ConfigManager;
 
 
 class SubList extends skyui.components.list.ScrollingList
-{	
-  // Stage
-	public var nosuboptionstxt: TextField;
+{
+	/* VARIABLES */
 
-  // Variables
-  public var _highLightColor;
-  public var _selectDisable;
+	public var activeTypes:Array;
 
-  /* INITIALIZATION */
+	public var _highLightColor;
+	public var _selectDisable;
+
+	/* INITIALIZATION */
 
 	public function SubList()
 	{
 		super();
-    _selectDisable = false;
+    activeTypes = new Array();
+		_selectDisable = false;
 	}
 
-  // public functions
+	// public functions
 
-  public function setHighlightColor(color)
-  {
-    _highLightColor = color;
-  }
+	public function setHighlightColor(color)
+	{
+		_highLightColor = color;
+	}
 
-  // @Override ScrollingList
-  public function InvalidateData()
-  {
-    super.InvalidateData();
+	public function updateEnabledStatus(enabledTypes:Array)
+	{
+    activeTypes = enabledTypes;
+		InvalidateData();
+	}
 
-    doSetSelectedIndex(-1, SELECT_MOUSE);
-    nosuboptionstxt._visible = getListEnumSize() <= 0;
-  }
+	// @Override ScrollingList
+	public function InvalidateData()
+	{
+		super.InvalidateData();
+
+		doSetSelectedIndex(-1,SELECT_MOUSE);
+	}
 
 }
