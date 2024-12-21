@@ -19,7 +19,7 @@ import skyui.components.ButtonPanel;
 import com.greensock.*;
 import com.greensock.easing.*;
 
-class MessengerMenu extends MovieClip
+class PlanningMenu extends MovieClip
 {
 	public static var OPTION_NONE = -1;
 	public static var OPTION_RANDOM = 0;
@@ -76,7 +76,7 @@ class MessengerMenu extends MovieClip
 
   /* INITIALIZATION */
 
-	public function MessengerMenu()
+	public function PlanningMenu()
 	{
 		super();
 		Mouse.addListener(this);
@@ -155,7 +155,6 @@ class MessengerMenu extends MovieClip
 	}
 
 	public function closeMenu() {
-		// TODO: Implement this
 		var list = menu.mainOptions.entryList;
 		for (var i = 0; i < list.length; i++) {
 			var it = list[i];
