@@ -108,8 +108,8 @@ class PlanningMenu extends MovieClip
 		var stageHeight = maxXY.y - minXY.y;
 		menu._x = (minXY.x + maxXY.x) / 2;
 		menu._y = stageMidY - stageMidY * 0.1;
-		menu._height = stageHeight * 0.7;
-		menu._width = menu._height * 1.76;
+		menu._height = stageHeight * 0.56;
+		menu._width = menu._height * 1.09;
 
 		// menu.addEventListener("closeMenu", this, "onCloseMenu");
 
