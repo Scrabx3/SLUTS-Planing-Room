@@ -19,7 +19,6 @@ class MainList extends skyui.components.list.ScrollingList
 	public var entryWidth: Number = 170;
 
 	/* Variables */
-	public var _selectDisable;
 
 	private var _maxEntryWidthCount;
 	private var _listWidth;
@@ -29,7 +28,6 @@ class MainList extends skyui.components.list.ScrollingList
 	public function MainList()
 	{
 		super();
-		_selectDisable = false;
 
 		_listWidth = background._width - leftBorder - rightBorder;
 		_maxEntryWidthCount = Math.floor(_listWidth / entryWidth);

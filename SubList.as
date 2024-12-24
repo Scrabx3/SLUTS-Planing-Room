@@ -17,9 +17,7 @@ class SubList extends skyui.components.list.ScrollingList
 	/* VARIABLES */
 
 	public var activeTypes:Array;
-
-	public var _highLightColor;
-	public var _selectDisable;
+	public var allowedTypes:Array;
 
 	/* INITIALIZATION */
 
@@ -27,19 +25,15 @@ class SubList extends skyui.components.list.ScrollingList
 	{
 		super();
     activeTypes = new Array();
-		_selectDisable = false;
+		allowedTypes = new Array();
 	}
 
 	// public functions
 
-	public function setHighlightColor(color)
-	{
-		_highLightColor = color;
-	}
-
-	public function updateEnabledStatus(enabledTypes:Array)
+	public function updateEnabledStatus(enabledTypes:Array, validTypes:Array)
 	{
     activeTypes = enabledTypes;
+		allowedTypes = validTypes;
 		InvalidateData();
 	}
 

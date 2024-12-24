@@ -40,13 +40,11 @@ class PlanningMenu extends MovieClip
 
 	public function setSuboptions(/* Sub Options */)
 	{
-		// name, type
+		// type
 		var subOptions = new Array();
 		for (var i = 0; i < arguments.length; i++) {
-			var objStrings = arguments[i].split(",");
 			var subOption = {
-				name: objStrings[0],
-				type: objStrings[1]
+				type: arguments[i]
 			};
 			subOptions.push(subOption);
 		}
@@ -55,7 +53,7 @@ class PlanningMenu extends MovieClip
 
 	public function openMenu(/* Options */)
 	{
-		// name, id, location, hold, id, enabled, type1/type2/...
+		// name, id, location, type1/type2/..., accepted1/accepted2/...
 		var options = new Array();
 		for (var i = 0; i < arguments.length; i++) {
 			var objStrings = arguments[i].split(",");
@@ -63,9 +61,9 @@ class PlanningMenu extends MovieClip
 				name: objStrings[0],
 				id: objStrings[1],
 				location: objStrings[2],
-				hold: objStrings[3],
-				enabled: objStrings[4],
-				types: objStrings[5].split("/")
+				types: objStrings[3].split("/"),
+				valid: objStrings[4].split("/"),
+				enabled: true
 			};
 			options.push(option);
 		}
@@ -118,16 +116,16 @@ class PlanningMenu extends MovieClip
 
 	private function test() {
 		var subOpts = [
-			"Option1,TypeA",
-			"Option2,TypeB",
-			"Option3,TypeC"
+			"TypeA",
+			"TypeB",
+			"TypeC"
 		];
 		setSuboptions.apply(this, subOpts);
 		
 		var opts = [
-			"Option1,Loc 1,Hold1,1,true,TypeA/TypeB",
-			"Option2,Loc 2,Hold2,2,true,TypeB/TypeC",
-			"Option3,Loc 3,Hold3,3,true,TypeC"
+			"Option1,1,Loc 1,TypeA/TypeB,TypeC",
+			"Option2,2,Loc 2,TypeB/TypeC,TypeA",
+			"Option3,3,Loc 3,TypeC,TypeB/TypeA"
 		];
 		openMenu.apply(this, opts);
 	}
@@ -161,7 +159,7 @@ class PlanningMenu extends MovieClip
 			var argStr = it.types.join("/");
 			trace("Sending Event with " + it.name + " / " + it.id + " / " + argStr);
 			skse.Log("[Sluts] Updating Types for Actor: " + it.id + " -> " + argStr);
-			skse.SendModEvent("SLUTS_UpdateTypes", argStr, it.id);
+			skse.SendModEvent("SLUTS_PlanningRoomUpdateTypes", argStr, 0, it.id);
 		}
 		TweenLite.to(this, 0.6, {_alpha: 0, onComplete: skse.CloseMenu, onCompleteParams: ["CustomMenu"]});
 	}

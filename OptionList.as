@@ -186,7 +186,7 @@ class OptionList extends MovieClip
 	private function onItemsListSelectionChange(event:Object):Void
 	{
 		var it = mainOptions.selectedEntry;
-		subOptions.updateEnabledStatus(it.types);
+		subOptions.updateEnabledStatus(it.types, it.valid);
 		if (event.index != -1) {
 			GameDelegate.call("PlaySound",["UIMenuFocus"]);
 		}
@@ -207,7 +207,7 @@ class OptionList extends MovieClip
 		} else {
 			_selectedMain.types.push(it.type);
 		}
-		subOptions.updateEnabledStatus(_selectedMain.types);
+		subOptions.updateEnabledStatus(_selectedMain.types, _selectedMain.valid);
 		subOptions.selectedIndex = event.index;
 	}
 

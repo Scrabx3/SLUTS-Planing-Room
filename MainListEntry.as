@@ -43,13 +43,9 @@ class MainListEntry extends BasicListEntry
 	public function setEntry(a_entryObject:Object, a_state:ListState):Void
 	{
 		var selected = a_entryObject == a_state.list.selectedEntry;
-		if (a_state.list["_selectDisable"])
-			enabled = selected;
-		else
-			enabled = a_entryObject.enabled;
-
+		enabled = a_entryObject.enabled;
 		name.text = a_entryObject.name;
-		hold.text = a_entryObject.location + " / " + a_entryObject.hold;
+		hold.text = a_entryObject.location;
 
 		if (selected) {
 			_alpha = enabled ? 100 : 25;
