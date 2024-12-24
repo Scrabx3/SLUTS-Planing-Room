@@ -41,7 +41,7 @@ class SubListEntry extends BasicListEntry
 		name.text = a_entryObject.type;
 		_selected = a_entryObject == a_state.list.selectedEntry;
 		var allowedTypes = a_state.list["allowedTypes"];
-		enabled = isEnabled = allowedTypes.indexOf(a_entryObject.type) == undefined;
+		enabled = isEnabled = allowedTypes.indexOf(a_entryObject.type) != undefined;
 
 		selectIndicator.clear();
 		selectIndicator._visible = true;
