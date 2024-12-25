@@ -43,8 +43,10 @@ class PlanningMenu extends MovieClip
 		// type
 		var subOptions = new Array();
 		for (var i = 0; i < arguments.length; i++) {
+			var objStrings = arguments[i].split(";");
 			var subOption = {
-				type: arguments[i]
+				name: objStrings[0],
+				type: objStrings[1]
 			};
 			subOptions.push(subOption);
 		}
@@ -56,14 +58,16 @@ class PlanningMenu extends MovieClip
 		// name, id, location, type1/type2/..., accepted1/accepted2/...
 		var options = new Array();
 		for (var i = 0; i < arguments.length; i++) {
-			var objStrings = arguments[i].split(",");
+			var objStrings = arguments[i].split(";");
+			var types = objStrings[3].split("/");
+			var valid = objStrings[4].split("/");
 			var option = {
+				enabled: true,
 				name: objStrings[0],
-				id: objStrings[1],
+				id: parseInt(objStrings[1]),
 				location: objStrings[2],
-				types: objStrings[3].split("/"),
-				valid: objStrings[4].split("/"),
-				enabled: true
+				types: types,
+				valid: valid
 			};
 			options.push(option);
 		}
@@ -79,6 +83,8 @@ class PlanningMenu extends MovieClip
 		super();
 		Mouse.addListener(this);
 		FocusHandler.instance.setFocus(this, 0);
+
+		menu._alpha = 0;
 		_global.gfxExtensions = true;
 	}
 
@@ -111,21 +117,21 @@ class PlanningMenu extends MovieClip
 
 		// menu.addEventListener("closeMenu", this, "onCloseMenu");
 
-		// setTimeout(Delegate.create(this, test), 1000);
+		setTimeout(Delegate.create(this, test), 1000);
 	}
 
 	private function test() {
 		var subOpts = [
-			"TypeA",
-			"TypeB",
-			"TypeC"
+			"TypeA,a",
+			"TypeB,b",
+			"TypeC,c"
 		];
 		setSuboptions.apply(this, subOpts);
 		
 		var opts = [
-			"Option1,1,Loc 1,TypeA/TypeB,TypeC",
-			"Option2,2,Loc 2,TypeB/TypeC,TypeA",
-			"Option3,3,Loc 3,TypeC,TypeB/TypeA"
+			"Option1;1;Loc 1;TypeA/TypeB;TypeC",
+			"Option2;2;Loc 2;TypeB/TypeC;TypeA",
+			"Option3;3;Loc 3;TypeC;TypeB/TypeA"
 		];
 		openMenu.apply(this, opts);
 	}

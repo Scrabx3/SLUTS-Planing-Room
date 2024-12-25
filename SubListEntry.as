@@ -38,10 +38,11 @@ class SubListEntry extends BasicListEntry
 	// @override BasicListEntry
 	public function setEntry(a_entryObject:Object, a_state:ListState):Void
 	{
-		name.text = a_entryObject.type;
+		name.text = a_entryObject.name;
 		_selected = a_entryObject == a_state.list.selectedEntry;
 		var allowedTypes = a_state.list["allowedTypes"];
-		enabled = isEnabled = allowedTypes.indexOf(a_entryObject.type) != undefined;
+		var allowedIdx = allowedTypes.indexOf(a_entryObject.type);
+		enabled = isEnabled = allowedIdx != undefined;
 
 		selectIndicator.clear();
 		selectIndicator._visible = true;
