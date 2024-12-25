@@ -43,10 +43,9 @@ class PlanningMenu extends MovieClip
 		// type
 		var subOptions = new Array();
 		for (var i = 0; i < arguments.length; i++) {
-			var objStrings = arguments[i].split(";");
+			// var objStrings = arguments[i].split(";");
 			var subOption = {
-				name: objStrings[0],
-				type: objStrings[1]
+				type: arguments[i]
 			};
 			subOptions.push(subOption);
 		}
@@ -117,14 +116,14 @@ class PlanningMenu extends MovieClip
 
 		// menu.addEventListener("closeMenu", this, "onCloseMenu");
 
-		setTimeout(Delegate.create(this, test), 1000);
+		// setTimeout(Delegate.create(this, test), 1000);
 	}
 
 	private function test() {
 		var subOpts = [
-			"TypeA,a",
-			"TypeB,b",
-			"TypeC,c"
+			"TypeA",
+			"TypeB",
+			"TypeC"
 		];
 		setSuboptions.apply(this, subOpts);
 		
